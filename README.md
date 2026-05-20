@@ -1,93 +1,34 @@
-# Flint Project
+# Flint (trimmed)
 
-## Overview
-Flint is a multi-faceted project that includes desktop and web applications, backend services, and machine learning components. It is designed to provide robust solutions for data analysis, forecasting, and trading environments.
+This repository has been trimmed to only include the ML forecaster and RL agent components.
 
-## Project Structure
+Remaining structure:
 
-### Applications
-- **Desktop**: Built with Electron and Vite, the desktop application includes components for charting, terminal integration, and user interface elements.
-- **Web**: A Next.js-based web application with styled components and pages for user interaction.
+- `services/backend/model/forecaster` — forecaster code and export scripts
+- `services/backend/model/run_agent` — RL (PPO) training/eval pipelines
+- `services/backend/model/agents` — agent wrappers
+- `services/backend/model/trade_env` — environment and utilities
+- `services/backend/model/data` — CSV data and extraction scripts
+- `services/backend/model/README_model.md` — model examples and commands
 
-### Backend Services
-- **API**: Python-based API with routes for candles, contracts, forecasts, ICT, and volume. Includes data handling and service logic.
-- **Market State**: Services for managing market data and states.
-- **Trading**: Engines for ICT and volume trading.
-- **ML Engine**: Machine learning components for forecasting and data analysis.
+Quick start:
 
-### Packages
-- **Config**: Shared configuration files and presets.
-- **UI**: Reusable UI components.
+1. Install dependencies:
 
-### Data
-- **ES Futures**: Historical data files for futures trading.
+```bash
+pip install -r requirements.txt
+```
 
-## Getting Started
+2. Export forecasts (example):
 
-### Prerequisites
-- Node.js
-- Python 3.8+
-- npm or yarn
-- Conda (optional for Python environment management)
+```bash
+python -m backend.model.forecaster.export_forecast --contract H --start-ts "2025-09-15T07:00:00Z" --align next
+```
 
-### Installation
-1. Clone the repository:
-   ```bash
-   git clone <repository-url>
-   ```
-2. Navigate to the project directory:
-   ```bash
-   cd flint
-   ```
-3. Install dependencies:
-   - For the desktop application:
-     ```bash
-     cd apps/desktop
-     npm install
-     ```
-   - For the web application:
-     ```bash
-     cd apps/web
-     npm install
-     ```
-   - For backend services:
-     ```bash
-     cd services
-     pip install -r requirements.txt
-     ```
+3. Run agent eval report (example):
 
-### Running the Project
-- **Desktop Application**:
-  ```bash
-  start_flint.bat
-  ```
-- **Web Application**:
-  ```bash
-  start_web.bat
-  ```
-- **Backend Services**:
-  ```bash
-  python -m services.api.main
-  ```
+```bash
+python -m backend.model.run_agent.run_eval_report --contract H --start-ts "2025-09-15T07:00:00Z" --align next
+```
 
-## Contributing
-1. Fork the repository.
-2. Create a new branch:
-   ```bash
-   git checkout -b feature/your-feature-name
-   ```
-3. Commit your changes:
-   ```bash
-   git commit -m "Add your message"
-   ```
-4. Push to the branch:
-   ```bash
-   git push origin feature/your-feature-name
-   ```
-5. Open a pull request.
-
-## License
-This project is licensed under the MIT License. See the LICENSE file for details.
-
-## Contact
-For questions or support, please contact the project maintainers.
+If you want a full backup of the remaining model folder, there's a ZIP in the repository root named `model_backup.zip`.
